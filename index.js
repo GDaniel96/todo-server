@@ -22,7 +22,7 @@ const readTodo = async () => {
     });
 };
 
-const writeDataOnDisk = async (newData) => {
+const writeTodo = async (newData) => {
   const dataStringified = JSON.stringify(newData);
 
   return await fsp
@@ -58,7 +58,7 @@ app.post("/", async (req, res) => {
     },
   ];
 
-  writeDataOnDisk(newData);
+  writeTodo(newData);
   res.send(body);
 });
 
@@ -74,7 +74,7 @@ app.delete("/:id", async (req, res) => {
     return true;
   });
 
-  writeDataOnDisk(newData);
+  writeTodo(newData);
   res.send();
 });
 
@@ -91,7 +91,7 @@ app.patch("/:id", async (req, res) => {
     return todo;
   });
 
-  writeDataOnDisk(newData);
+  writeTodo(newData);
   res.send();
 });
 
