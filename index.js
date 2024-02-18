@@ -48,7 +48,7 @@ app.post("/", async (req, res) => {
   const lastTodoIndex = dataParse.length - 1;
   const lastTodo = dataParse[lastTodoIndex];
 
-  const lastTodoId = lastTodoIndex < 0 ? 1 : lastTodo.id;
+  const lastTodoId = lastTodoIndex < 0 ? 0 : lastTodo.id;
 
   const newData = [
     ...dataParse,
@@ -58,6 +58,7 @@ app.post("/", async (req, res) => {
     },
   ];
 
+  console.log(lastTodoIndex);
   writeTodo(newData);
   res.send(body);
 });
@@ -85,8 +86,7 @@ app.patch("/:id", async (req, res) => {
   const todoId = parseInt(req.params.id);
   const newData = dataParse.map((todo) => {
     if (todo.id === todoId) {
-      todo.isChecked = !todo.isChecked;
-      return todo;
+      return { ...todo, completed: !todo.completed };
     }
     return todo;
   });
